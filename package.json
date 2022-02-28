@@ -1,0 +1,21 @@
+{
+  "name": "graph",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node homeworks/homework.one.js",
+    "dev":"nodemon homeworks/homework.one.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^3.6.3",
+    "apollo-server-core": "^3.6.3",
+    "graphql": "^16.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
