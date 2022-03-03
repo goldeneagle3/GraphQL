@@ -1,10 +1,12 @@
-const { ApolloServer, gql } = require("apollo-server");
-const {
-  ApolloServerPluginLandingPageGraphQLPlayground,
-} = require("apollo-server-core/dist/plugin/landingPage/graphqlPlayground");
+// const { ApolloServer, gql } = require("apollo-server");
+// const {
+//   ApolloServerPluginLandingPageGraphQLPlayground,
+// } = require("apollo-server-core/dist/plugin/landingPage/graphqlPlayground");
+const {GraphQLServer,PubSub,withFilter} = require("graphql-yoga");
 const { nanoid } = require("nanoid");
 const {remove} = require('lodash');
 
+const pubsub = require("./pubRedis")
 const { books, authors } = require("./data");
 
 const typeDefs = gql`
@@ -166,10 +168,17 @@ const resolvers = {
   },
 };
 
-const server = new ApolloServer({
+// const server = new ApolloServer({
+//   typeDefs,
+//   resolvers,
+//   plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
+// });
+const server = new GraphQLServer({
   typeDefs,
   resolvers,
-  plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
-});
+  context:{
+    pubsub
+  }
+})
 
 server.listen().then(({ url }) => console.log(url));
